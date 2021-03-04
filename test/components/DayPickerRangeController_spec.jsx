@@ -103,6 +103,14 @@ describe('DayPickerRangeController', () => {
       onFocusChange() {},
     };
 
+    describe('rebuilding navigation by minDate/maxDate', () => {
+      describe('minDate changed', () => {
+        it('', () => {
+
+        });
+      });
+    });
+
     describe('rebuilding currentMonth/visibleDays', () => {
       describe('initialVisibleMonth changed', () => {
         describe('focusedInput has changed and is truthy', () => {
