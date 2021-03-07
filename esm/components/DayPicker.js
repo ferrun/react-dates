@@ -101,6 +101,7 @@ var propTypes = process.env.NODE_ENV !== "production" ? forbidExtraProps(_object
   onBlur: PropTypes.func,
   showKeyboardShortcuts: PropTypes.bool,
   onTab: PropTypes.func,
+  onKeyDownEscape: PropTypes.func,
   onShiftTab: PropTypes.func,
   // internationalization
   monthFormat: PropTypes.string,
@@ -167,6 +168,7 @@ export var defaultProps = {
   onBlur: function onBlur() {},
   showKeyboardShortcuts: false,
   onTab: function onTab() {},
+  onKeyDownEscape: function onKeyDownEscape() {},
   onShiftTab: function onShiftTab() {},
   // internationalization
   monthFormat: 'MMMM YYYY',
@@ -407,6 +409,7 @@ var DayPicker = /*#__PURE__*/function (_ref) {
     var _this$props3 = this.props,
         onBlur = _this$props3.onBlur,
         onTab = _this$props3.onTab,
+        onKeyDownEscape = _this$props3.onKeyDownEscape,
         onShiftTab = _this$props3.onShiftTab,
         isRTL = _this$props3.isRTL;
     var _this$state2 = this.state,
@@ -492,7 +495,7 @@ var DayPicker = /*#__PURE__*/function (_ref) {
         if (showKeyboardShortcuts) {
           this.closeKeyboardShortcutsPanel();
         } else {
-          onBlur(e);
+          onKeyDownEscape(e);
         }
 
         break;

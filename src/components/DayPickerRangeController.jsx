@@ -109,6 +109,7 @@ const propTypes = forbidExtraProps({
   isFocused: PropTypes.bool,
   showKeyboardShortcuts: PropTypes.bool,
   onTab: PropTypes.func,
+  onKeyDownEscape: PropTypes.func,
   onShiftTab: PropTypes.func,
 
   // i18n
@@ -186,6 +187,7 @@ const defaultProps = {
   isFocused: false,
   showKeyboardShortcuts: false,
   onTab() {},
+  onKeyDownEscape() {},
   onShiftTab() {},
 
   // i18n
@@ -1336,6 +1338,7 @@ export default class DayPickerRangeController extends React.PureComponent {
       calendarInfoPosition,
       onBlur,
       onShiftTab,
+      onKeyDownEscape,
       onTab,
       isFocused,
       showKeyboardShortcuts,
@@ -1370,6 +1373,7 @@ export default class DayPickerRangeController extends React.PureComponent {
         onNextMonthClick={this.onNextMonthClick}
         onMonthChange={this.onMonthChange}
         onTab={onTab}
+        onKeyDownEscape={onKeyDownEscape}
         onShiftTab={onShiftTab}
         onYearChange={this.onYearChange}
         onGetNextScrollableMonths={this.onGetNextScrollableMonths}

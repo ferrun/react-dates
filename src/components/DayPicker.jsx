@@ -118,6 +118,7 @@ const propTypes = forbidExtraProps({
   onBlur: PropTypes.func,
   showKeyboardShortcuts: PropTypes.bool,
   onTab: PropTypes.func,
+  onKeyDownEscape: PropTypes.func,
   onShiftTab: PropTypes.func,
 
   // internationalization
@@ -188,6 +189,7 @@ export const defaultProps = {
   onBlur() {},
   showKeyboardShortcuts: false,
   onTab() {},
+  onKeyDownEscape() {},
   onShiftTab() {},
 
   // internationalization
@@ -446,6 +448,7 @@ class DayPicker extends React.PureComponent {
     const {
       onBlur,
       onTab,
+      onKeyDownEscape,
       onShiftTab,
       isRTL,
     } = this.props;
@@ -522,7 +525,7 @@ class DayPicker extends React.PureComponent {
         if (showKeyboardShortcuts) {
           this.closeKeyboardShortcutsPanel();
         } else {
-          onBlur(e);
+          onKeyDownEscape(e);
         }
         break;
 

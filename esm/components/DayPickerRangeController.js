@@ -96,6 +96,7 @@ var propTypes = process.env.NODE_ENV !== "production" ? forbidExtraProps({
   isFocused: PropTypes.bool,
   showKeyboardShortcuts: PropTypes.bool,
   onTab: PropTypes.func,
+  onKeyDownEscape: PropTypes.func,
   onShiftTab: PropTypes.func,
   // i18n
   monthFormat: PropTypes.string,
@@ -165,6 +166,7 @@ var defaultProps = {
   isFocused: false,
   showKeyboardShortcuts: false,
   onTab: function onTab() {},
+  onKeyDownEscape: function onKeyDownEscape() {},
   onShiftTab: function onShiftTab() {},
   // i18n
   monthFormat: 'MMMM YYYY',
@@ -1294,6 +1296,7 @@ var DayPickerRangeController = /*#__PURE__*/function (_ref) {
         calendarInfoPosition = _this$props22.calendarInfoPosition,
         onBlur = _this$props22.onBlur,
         onShiftTab = _this$props22.onShiftTab,
+        onKeyDownEscape = _this$props22.onKeyDownEscape,
         onTab = _this$props22.onTab,
         isFocused = _this$props22.isFocused,
         showKeyboardShortcuts = _this$props22.showKeyboardShortcuts,
@@ -1323,6 +1326,7 @@ var DayPickerRangeController = /*#__PURE__*/function (_ref) {
       onNextMonthClick: this.onNextMonthClick,
       onMonthChange: this.onMonthChange,
       onTab: onTab,
+      onKeyDownEscape: onKeyDownEscape,
       onShiftTab: onShiftTab,
       onYearChange: this.onYearChange,
       onGetNextScrollableMonths: this.onGetNextScrollableMonths,
