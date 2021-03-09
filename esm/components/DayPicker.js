@@ -35,7 +35,7 @@ import ScrollableOrientationShape from '../shapes/ScrollableOrientationShape';
 import DayOfWeekShape from '../shapes/DayOfWeekShape';
 import CalendarInfoPositionShape from '../shapes/CalendarInfoPositionShape';
 import { HORIZONTAL_ORIENTATION, VERTICAL_ORIENTATION, VERTICAL_SCROLLABLE, DAY_SIZE, INFO_POSITION_TOP, INFO_POSITION_BOTTOM, INFO_POSITION_BEFORE, INFO_POSITION_AFTER, MODIFIER_KEY_NAMES, NAV_POSITION_TOP, NAV_POSITION_BOTTOM } from '../constants';
-var MONTH_PADDING = 23;
+var MONTH_PADDING = 16;
 var PREV_TRANSITION = 'prev';
 var NEXT_TRANSITION = 'next';
 var MONTH_SELECTION_TRANSITION = 'month_selection';
@@ -414,9 +414,8 @@ var DayPicker = /*#__PURE__*/function (_ref) {
         isRTL = _this$props3.isRTL;
     var _this$state2 = this.state,
         focusedDate = _this$state2.focusedDate,
-        showKeyboardShortcuts = _this$state2.showKeyboardShortcuts;
-    if (!focusedDate) return;
-    var newFocusedDate = focusedDate.clone();
+        showKeyboardShortcuts = _this$state2.showKeyboardShortcuts; //if (!focusedDate) return;
+
     var didTransitionMonth = false; // focus might be anywhere when the keyboard shortcuts panel is opened so we want to
     // return it to wherever it was before when the panel was opened
 
@@ -426,67 +425,85 @@ var DayPicker = /*#__PURE__*/function (_ref) {
       if (activeElement) activeElement.focus();
     };
 
+    if (focusedDate) {
+      var newFocusedDate = focusedDate.clone();
+
+      switch (e.key) {
+        case 'ArrowUp':
+          e.preventDefault();
+          newFocusedDate.subtract(1, 'week');
+          didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
+          break;
+
+        case 'ArrowLeft':
+          e.preventDefault();
+
+          if (isRTL) {
+            newFocusedDate.add(1, 'day');
+          } else {
+            newFocusedDate.subtract(1, 'day');
+          }
+
+          didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
+          break;
+
+        case 'Home':
+          e.preventDefault();
+          newFocusedDate.startOf('week');
+          didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
+          break;
+
+        case 'PageUp':
+          e.preventDefault();
+          newFocusedDate.subtract(1, 'month');
+          didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
+          break;
+
+        case 'ArrowDown':
+          e.preventDefault();
+          newFocusedDate.add(1, 'week');
+          didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
+          break;
+
+        case 'ArrowRight':
+          e.preventDefault();
+
+          if (isRTL) {
+            newFocusedDate.subtract(1, 'day');
+          } else {
+            newFocusedDate.add(1, 'day');
+          }
+
+          didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
+          break;
+
+        case 'End':
+          e.preventDefault();
+          newFocusedDate.endOf('week');
+          didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
+          break;
+
+        case 'PageDown':
+          e.preventDefault();
+          newFocusedDate.add(1, 'month');
+          didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
+          break;
+
+        default:
+          break;
+      } // If there was a month transition, do not update the focused date until the transition has
+      // completed. Otherwise, attempting to focus on a DOM node may interrupt the CSS animation. If
+      // didTransitionMonth is true, the focusedDate gets updated in #updateStateAfterMonthTransition
+
+
+      if (!didTransitionMonth) {
+        this.setState({
+          focusedDate: newFocusedDate
+        });
+      }
+    }
+
     switch (e.key) {
-      case 'ArrowUp':
-        e.preventDefault();
-        newFocusedDate.subtract(1, 'week');
-        didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
-        break;
-
-      case 'ArrowLeft':
-        e.preventDefault();
-
-        if (isRTL) {
-          newFocusedDate.add(1, 'day');
-        } else {
-          newFocusedDate.subtract(1, 'day');
-        }
-
-        didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
-        break;
-
-      case 'Home':
-        e.preventDefault();
-        newFocusedDate.startOf('week');
-        didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
-        break;
-
-      case 'PageUp':
-        e.preventDefault();
-        newFocusedDate.subtract(1, 'month');
-        didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
-        break;
-
-      case 'ArrowDown':
-        e.preventDefault();
-        newFocusedDate.add(1, 'week');
-        didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
-        break;
-
-      case 'ArrowRight':
-        e.preventDefault();
-
-        if (isRTL) {
-          newFocusedDate.subtract(1, 'day');
-        } else {
-          newFocusedDate.add(1, 'day');
-        }
-
-        didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
-        break;
-
-      case 'End':
-        e.preventDefault();
-        newFocusedDate.endOf('week');
-        didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
-        break;
-
-      case 'PageDown':
-        e.preventDefault();
-        newFocusedDate.add(1, 'month');
-        didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
-        break;
-
       case '?':
         this.openKeyboardShortcutsPanel(onKeyboardShortcutsPanelClose);
         break;
@@ -511,15 +528,6 @@ var DayPicker = /*#__PURE__*/function (_ref) {
 
       default:
         break;
-    } // If there was a month transition, do not update the focused date until the transition has
-    // completed. Otherwise, attempting to focus on a DOM node may interrupt the CSS animation. If
-    // didTransitionMonth is true, the focusedDate gets updated in #updateStateAfterMonthTransition
-
-
-    if (!didTransitionMonth) {
-      this.setState({
-        focusedDate: newFocusedDate
-      });
     }
   };
 

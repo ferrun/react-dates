@@ -47,7 +47,7 @@ import {
   NAV_POSITION_BOTTOM,
 } from '../constants';
 
-const MONTH_PADDING = 23;
+const MONTH_PADDING = 16;
 const PREV_TRANSITION = 'prev';
 const NEXT_TRANSITION = 'next';
 const MONTH_SELECTION_TRANSITION = 'month_selection';
@@ -453,9 +453,8 @@ class DayPicker extends React.PureComponent {
       isRTL,
     } = this.props;
     const { focusedDate, showKeyboardShortcuts } = this.state;
-    if (!focusedDate) return;
+    //if (!focusedDate) return;
 
-    const newFocusedDate = focusedDate.clone();
 
     let didTransitionMonth = false;
 
@@ -465,6 +464,8 @@ class DayPicker extends React.PureComponent {
     const onKeyboardShortcutsPanelClose = () => {
       if (activeElement) activeElement.focus();
     };
+    if (focusedDate){
+      const newFocusedDate = focusedDate.clone();
 
     switch (e.key) {
       case 'ArrowUp':
@@ -517,6 +518,19 @@ class DayPicker extends React.PureComponent {
         didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
         break;
 
+      default:
+        break;
+    }
+    // If there was a month transition, do not update the focused date until the transition has
+    // completed. Otherwise, attempting to focus on a DOM node may interrupt the CSS animation. If
+    // didTransitionMonth is true, the focusedDate gets updated in #updateStateAfterMonthTransition
+    if (!didTransitionMonth) {
+      this.setState({
+        focusedDate: newFocusedDate,
+      });
+    }
+    }
+    switch (e.key) {
       case '?':
         this.openKeyboardShortcutsPanel(onKeyboardShortcutsPanelClose);
         break;
@@ -541,14 +555,7 @@ class DayPicker extends React.PureComponent {
         break;
     }
 
-    // If there was a month transition, do not update the focused date until the transition has
-    // completed. Otherwise, attempting to focus on a DOM node may interrupt the CSS animation. If
-    // didTransitionMonth is true, the focusedDate gets updated in #updateStateAfterMonthTransition
-    if (!didTransitionMonth) {
-      this.setState({
-        focusedDate: newFocusedDate,
-      });
-    }
+    
   }
 
   onPrevMonthClick(e) {
