@@ -198,7 +198,7 @@ var CalendarMonth = /*#__PURE__*/function (_ref) {
           day: day,
           daySize: daySize,
           isOutsideDay: !day || day.month() !== month.month(),
-          tabIndex: isVisible && (isSameDay(day, focusedDate) || isSameDay(day, month.startOf('month'))) ? 0 : -1,
+          tabIndex: isSameDay(day, month.startOf('month')) ? 0 : -1,
           isFocused: isFocused,
           onDayMouseEnter: onDayMouseEnter,
           onDayMouseLeave: onDayMouseLeave,

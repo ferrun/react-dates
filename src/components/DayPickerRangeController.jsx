@@ -1382,7 +1382,7 @@ export default class DayPickerRangeController extends React.PureComponent {
         renderMonthText={renderMonthText}
         renderWeekHeaderElement={renderWeekHeaderElement}
         withPortal={withPortal}
-        hidden={!focusedInput}
+        hidden={false}
         initialVisibleMonth={() => currentMonth}
         daySize={daySize}
         onOutsideClick={onOutsideClick}

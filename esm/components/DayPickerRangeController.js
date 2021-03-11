@@ -1335,7 +1335,7 @@ var DayPickerRangeController = /*#__PURE__*/function (_ref) {
       renderMonthText: renderMonthText,
       renderWeekHeaderElement: renderWeekHeaderElement,
       withPortal: withPortal,
-      hidden: !focusedInput,
+      hidden: false,
       initialVisibleMonth: function initialVisibleMonth() {
         return currentMonth;
       },

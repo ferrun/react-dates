@@ -333,7 +333,7 @@ class DayPicker extends React.PureComponent {
         this.setState({
           showKeyboardShortcuts,
           onKeyboardShortcutsPanelClose,
-          focusedDate,
+         // focusedDate,
           withMouseInteractions: false,
         });
       } else {
@@ -587,7 +587,7 @@ class DayPicker extends React.PureComponent {
       monthTransition: PREV_TRANSITION,
       translationValue,
       focusedDate: null,
-      nextFocusedDate,
+      //nextFocusedDate,
     });
   }
 
@@ -654,7 +654,7 @@ class DayPicker extends React.PureComponent {
       monthTransition: NEXT_TRANSITION,
       translationValue,
       focusedDate: null,
-      nextFocusedDate,
+      //nextFocusedDate,
     });
   }
 
@@ -860,7 +860,7 @@ class DayPicker extends React.PureComponent {
       monthTransition: null,
       translationValue: (isRTL && this.isHorizontal()) ? -calendarMonthWidth : 0,
       nextFocusedDate: null,
-      focusedDate: newFocusedDate,
+      //focusedDate: newFocusedDate,
     }, () => {
       // we don't want to focus on the relevant calendar day after a month transition
       // if the user is navigating around using a mouse

@@ -302,7 +302,7 @@ var DayPicker = /*#__PURE__*/function (_ref) {
         this.setState({
           showKeyboardShortcuts: showKeyboardShortcuts,
           onKeyboardShortcutsPanelClose: onKeyboardShortcutsPanelClose,
-          focusedDate: focusedDate,
+          // focusedDate,
           withMouseInteractions: false
         });
       } else {
@@ -567,8 +567,8 @@ var DayPicker = /*#__PURE__*/function (_ref) {
     this.setState({
       monthTransition: PREV_TRANSITION,
       translationValue: translationValue,
-      focusedDate: null,
-      nextFocusedDate: nextFocusedDate
+      focusedDate: null //nextFocusedDate,
+
     });
   };
 
@@ -639,8 +639,8 @@ var DayPicker = /*#__PURE__*/function (_ref) {
     this.setState({
       monthTransition: NEXT_TRANSITION,
       translationValue: translationValue,
-      focusedDate: null,
-      nextFocusedDate: nextFocusedDate
+      focusedDate: null //nextFocusedDate,
+
     });
   };
 
@@ -860,8 +860,8 @@ var DayPicker = /*#__PURE__*/function (_ref) {
       currentMonth: newMonth,
       monthTransition: null,
       translationValue: isRTL && this.isHorizontal() ? -calendarMonthWidth : 0,
-      nextFocusedDate: null,
-      focusedDate: newFocusedDate
+      nextFocusedDate: null //focusedDate: newFocusedDate,
+
     }, function () {
       // we don't want to focus on the relevant calendar day after a month transition
       // if the user is navigating around using a mouse
