@@ -225,7 +225,7 @@ class CalendarMonth extends React.PureComponent {
                   day,
                   daySize,
                   isOutsideDay: !day || day.month() !== month.month(),
-                  tabIndex: isSameDay(day, month.startOf('month'))? 0 : -1,
+                  tabIndex: isVisible && isSameDay(day, focusedDate) ? 0 : -1,
                   isFocused,
                   onDayMouseEnter,
                   onDayMouseLeave,
